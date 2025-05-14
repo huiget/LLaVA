@@ -146,6 +146,12 @@ class LlavaMetaForCausalLM(ABC):
         self, input_ids, position_ids, attention_mask, past_key_values, labels,
         images, image_sizes=None
     ):
+        print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] input_ids shape: {input_ids is not None and input_ids.shape}")
+        print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] position_ids shape: {position_ids is not None and position_ids.shape}")
+        print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] attention_mask shape: {attention_mask is not None and attention_mask.shape}")
+        print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] past_key_values shape: {past_key_values is not None and past_key_values.shape}")
+        print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] labels shape: {labels is not None and labels.shape}")
+        print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] images shape: {images is not None and (len(images) if isinstance(images, list) else images.shape)}")
         vision_tower = self.get_vision_tower()
         if vision_tower is None or images is None or input_ids.shape[1] == 1:
             return input_ids, position_ids, attention_mask, past_key_values, None, labels
@@ -154,7 +160,9 @@ class LlavaMetaForCausalLM(ABC):
             if type(images) is list:
                 images = [x.unsqueeze(0) if x.ndim == 3 else x for x in images]
             concat_images = torch.cat([image for image in images], dim=0)
+            print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] concat_images shape: {concat_images.shape}")
             image_features = self.encode_images(concat_images)
+            print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] image_features shape: {image_features.shape}")
             split_sizes = [image.shape[0] for image in images]
             image_features = torch.split(image_features, split_sizes, dim=0)
             mm_patch_merge_type = getattr(self.config, 'mm_patch_merge_type', 'flat')

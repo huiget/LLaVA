@@ -95,6 +95,7 @@ def eval_model(args):
     conv.append_message(conv.roles[0], qs)
     conv.append_message(conv.roles[1], None)
     prompt = conv.get_prompt()
+    print(f"[run_llava.eval_model] prompt: {prompt}")
 
     image_files = image_parser(args)
     images = load_images(image_files)
