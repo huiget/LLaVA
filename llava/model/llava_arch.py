@@ -152,6 +152,7 @@ class LlavaMetaForCausalLM(ABC):
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] past_key_values shape: {past_key_values is not None and past_key_values.shape}")
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] labels shape: {labels is not None and labels.shape}")
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] images shape: {images is not None and (len(images) if isinstance(images, list) else images.shape)}")
+        print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] image_sizes: {image_sizes}")
         vision_tower = self.get_vision_tower()
         if vision_tower is None or images is None or input_ids.shape[1] == 1:
             return input_ids, position_ids, attention_mask, past_key_values, None, labels
