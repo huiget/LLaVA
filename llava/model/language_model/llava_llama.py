@@ -35,6 +35,7 @@ class LlavaLlamaModel(LlavaMetaModel, LlamaModel):
     config_class = LlavaConfig
 
     def __init__(self, config: LlamaConfig):
+        print(f"LlavaLlamaModel.__mro__: {LlavaLlamaModel.__mro__}")
         super(LlavaLlamaModel, self).__init__(config)
 
 
@@ -42,6 +43,7 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
     config_class = LlavaConfig
 
     def __init__(self, config):
+        print(f"LlavaLlamaForCausalLM.__mro__: {LlavaLlamaForCausalLM.__mro__}")
         super(LlamaForCausalLM, self).__init__(config)
         self.model = LlavaLlamaModel(config)
         self.pretraining_tp = config.pretraining_tp
