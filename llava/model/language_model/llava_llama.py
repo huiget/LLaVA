@@ -111,6 +111,9 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         image_sizes: Optional[torch.Tensor] = None,
         **kwargs,
     ) -> Union[GenerateOutput, torch.LongTensor]:
+        print(f"[LlavaLlamaForCausalLM.generate] inputs shape: {inputs is not None and inputs.shape}")
+        print(f"[LlavaLlamaForCausalLM.generate] images shape: {images is not None and images.shape}")
+        print(f"[LlavaLlamaForCausalLM.generate] image_sizes: {image_sizes}")
         position_ids = kwargs.pop("position_ids", None)
         attention_mask = kwargs.pop("attention_mask", None)
         if "inputs_embeds" in kwargs:
