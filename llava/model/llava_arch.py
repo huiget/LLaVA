@@ -25,6 +25,7 @@ from llava.constants import IGNORE_INDEX, IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_PATCH
 
 from llava.mm_utils import get_anyres_image_grid_shape
 
+import traceback
 
 class LlavaMetaModel:
 
@@ -147,6 +148,8 @@ class LlavaMetaForCausalLM(ABC):
         self, input_ids, position_ids, attention_mask, past_key_values, labels,
         images, image_sizes=None
     ):
+        print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal called")
+        traceback.print_stack()
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] input_ids shape: {input_ids is not None and input_ids.shape}")
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] position_ids shape: {position_ids is not None and position_ids.shape}")
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] attention_mask shape: {attention_mask is not None and attention_mask.shape}")
@@ -331,6 +334,8 @@ class LlavaMetaForCausalLM(ABC):
 
         if _position_ids is None:
             position_ids = None
+        
+        print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal returned")
 
         return None, position_ids, attention_mask, past_key_values, new_input_embeds, new_labels
 
