@@ -791,6 +791,9 @@ def train(attn_implementation=None):
     parser = transformers.HfArgumentParser(
         (ModelArguments, DataArguments, TrainingArguments))
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
+    print(f"[train.train] model_args: {model_args}")
+    print(f"[train.train] data_args: {data_args}")
+    print(f"[train.train] training_args: {training_args}")
     local_rank = training_args.local_rank
     compute_dtype = (torch.float16 if training_args.fp16 else (torch.bfloat16 if training_args.bf16 else torch.float32))
 
