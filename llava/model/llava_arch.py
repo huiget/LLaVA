@@ -149,7 +149,7 @@ class LlavaMetaForCausalLM(ABC):
         images, image_sizes=None
     ):
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal called")
-        traceback.print_stack()
+        # traceback.print_stack()
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] input_ids shape: {input_ids is not None and input_ids.shape}")
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] position_ids shape: {position_ids is not None and position_ids.shape}")
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] attention_mask shape: {attention_mask is not None and attention_mask.shape}")
@@ -214,6 +214,8 @@ class LlavaMetaForCausalLM(ABC):
                 raise ValueError(f"Unexpected mm_patch_merge_type: {self.config.mm_patch_merge_type}")
         else:
             image_features = self.encode_images(images)
+            print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] image_features shape: {image_features.shape}")
+
 
         # TODO: image start / end is not implemented here to support pretraining.
         if getattr(self.config, 'tune_mm_mlp_adapter', False) and getattr(self.config, 'mm_use_im_start_end', False):
