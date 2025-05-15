@@ -150,7 +150,7 @@ class LlavaMetaForCausalLM(ABC):
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] input_ids shape: {input_ids is not None and input_ids.shape}")
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] position_ids shape: {position_ids is not None and position_ids.shape}")
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] attention_mask shape: {attention_mask is not None and attention_mask.shape}")
-        print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] past_key_values shape: {past_key_values is not None and past_key_values.shape}")
+        print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] past_key_values size: {len(past_key_values)}, {len(past_key_values[0]) if past_key_values else None}, {past_key_values[0][0].shape if len(past_key_values) > 0 else None}")
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] labels shape: {labels is not None and labels.shape}")
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] images shape: {images is not None and (len(images) if isinstance(images, list) else images.shape)}")
         print(f"[LlavaMetaForCausalLM.prepare_inputs_labels_for_multimodal] image_sizes: {image_sizes}")
