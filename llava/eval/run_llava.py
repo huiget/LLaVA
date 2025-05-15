@@ -105,12 +105,14 @@ def eval_model(args):
         image_processor,
         model.config
     ).to(model.device, dtype=torch.float16)
+    print(f"[run_llava.eval_model] images_tensor shape: {images_tensor.shape}")
 
     input_ids = (
         tokenizer_image_token(prompt, tokenizer, IMAGE_TOKEN_INDEX, return_tensors="pt")
         .unsqueeze(0)
         .cuda()
     )
+    print(f"[run_llava.eval_model] input_ids: {input_ids}")
 
     with torch.inference_mode():
         output_ids = model.generate(
